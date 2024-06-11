@@ -4,6 +4,7 @@ import {
   allOrders,
   deleteOrder,
   getOrderDetails,
+  getSales,
   myOrders,
   newOrder,
   updateOrder,
@@ -13,6 +14,10 @@ const router = express.Router();
 router.route("/orders/new").post(isAuthenticatedUser, newOrder);
 router.route("/orders/:id").get(isAuthenticatedUser, getOrderDetails);
 router.route("/me/orders").get(isAuthenticatedUser, myOrders);
+
+router
+  .route("/admin/get_sales")
+  .get(isAuthenticatedUser, authorizedRoles("admin"), getSales);
 
 router
   .route("/admin/orders")

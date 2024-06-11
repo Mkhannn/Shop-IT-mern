@@ -89,7 +89,7 @@ const ConfirmOrder = () => {
 
             <hr />
             <Link
-              to="/confirm_payment"
+              to="/payment_method"
               id="checkout_btn"
               className="btn btn-primary w-100"
             >

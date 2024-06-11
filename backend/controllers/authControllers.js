@@ -203,7 +203,7 @@ export const allUsers = catchAsyncErrors(async (req, res, next) => {
 
 //get users Deatils => /api/v1/admin/Users/:id
 export const getUserDetails = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.find(req.params.id);
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     return next(
@@ -235,7 +235,7 @@ export const updateUser = catchAsyncErrors(async (req, res, next) => {
 
 //get delet user => /api/v1/admin/Users/:id
 export const deleteUser = catchAsyncErrors(async (req, res, next) => {
-  const user = await User.find(req.params.id);
+  const user = await User.findById(req.params.id);
 
   if (!user) {
     return next(
@@ -243,6 +243,9 @@ export const deleteUser = catchAsyncErrors(async (req, res, next) => {
     );
   }
   //Todo - remove user avatar
+  if (user?.avatar?.public_id) {
+    await delete_file(user?.avatar?.public_id);
+  }
   await user.deleteOne();
 
   res.status(200).json({
